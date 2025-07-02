@@ -14,7 +14,7 @@ class ProductCategoryController extends Controller
             'productCategoryImage' => 'required|image|max:2048',
         ]);
 
-        $image = $request->file('productImage');
+        $image = $request->file('productCategoryImage');
         $imagePath = $image->storeAs(
             'product-categories',
             time() . '_' . $image->getClientOriginalName(),
@@ -60,9 +60,10 @@ class ProductCategoryController extends Controller
         ]);
     
         if ($request->hasFile('productCategoryImage')) {
-            $imageName = $request->file('productCategoryImage')->getClientOriginalName();
-            $request->file('productCategoryImage')->move(public_path('hydrogen/images/product-categories'), $imageName);
-            $editProduct->productCategoryImage = 'images/product-categories/' . $imageName;
+            $image = $request->file('productCategoryImage');
+            $imageName = time() . '_' . $image->getClientOriginalName();
+            $imagePath = $image->storeAs('product-categories', $imageName, 'r2');
+            $editProduct->productCategoryImage = $imagePath;
         }
     
         $editProduct->update($request->only(['productCategoryName']));
