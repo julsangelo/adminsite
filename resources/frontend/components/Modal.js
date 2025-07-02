@@ -58,7 +58,7 @@ export default function Modal({
             case "image":
                 return (
                     <div className={styles.modalImage}>
-                        <img src={`https://${process.env.AWS_ENDPOINT}/${process.env.AWS_BUCKET}/${value}`} alt="" />
+                        <img src={`${process.env.R2_PUBLIC_URL}/${value}`} alt="" />
                     </div>
                 );
             case "addProductCategory":
