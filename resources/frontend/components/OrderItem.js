@@ -25,7 +25,7 @@ export default function OrderItem({
                     <div key={index} className={styles.orderItemInfo}>
                         <div className={styles.orderItemImageContainer}>
                             <img
-                                src={`/hydrogen/${item.productImage}`}
+                                src={`${process.env.R2_PUBLIC_URL}/${item.productImage}`}
                                 alt={item.productName}
                                 className={styles.orderItemImage}
                             />
