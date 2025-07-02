@@ -20,7 +20,7 @@ RUN apk update && apk add --no-cache \
 COPY . .
 
 # Install backend dependencies
-RUN composer install && npm install
+RUN composer install && npm install && npm run build
 
 CMD sh -c '\
     chmod -R 775 storage bootstrap/cache && \
