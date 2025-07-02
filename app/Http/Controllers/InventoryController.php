@@ -72,6 +72,9 @@ class InventoryController extends Controller
         ]);
     
         if ($request->hasFile('productImage')) {
+            if ($editProduct->productImage && Storage::disk('r2')->exists($editProduct->productImage)) {
+                Storage::disk('r2')->delete($editProduct->productImage);
+            }
             $image = $request->file('productImage');
             $imageName = time() . '_' . $image->getClientOriginalName();
             $imagePath = $image->storeAs('products', $imageName, 'r2');
@@ -86,9 +89,16 @@ class InventoryController extends Controller
     public function deleteInventory(Request $request) 
     {
         $productID = $request->input('productID');
-        $deleteInventory = Product::findOrFail($productID)->delete();
+        $product = Product::findOrFail($productID);
 
-        if ($deleteInventory) {
+        if ($product->productImage) {
+            $imagePath = $product->productImage;
+            Storage::disk('r2')->delete($imagePath);
+        }
+
+        $deleted = $product->delete();
+
+        if ($deleted) {
             return response()->json(['message' => 'Product deleted successfully.', 'status' => 'success']);
         } else {
             return response()->json(['message' => 'Error deleting the product.', 'status' => 'error']);

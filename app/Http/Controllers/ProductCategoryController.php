@@ -39,12 +39,19 @@ class ProductCategoryController extends Controller
         $categoryExists = Product::where("productCategory", $productCategoryID)->exists();
 
         if (!$categoryExists) {
-            $deleteCategory = ProductCategory::findOrFail($productCategoryID)->delete();
+            $productCategory = ProductCategory::findOrFail($productCategoryID);
+
+            if ($productCategory->productCategoryImage) {
+                $imagePath = $product->productCategoryImage;
+                Storage::disk('r2')->delete($imagePath);
+            }
+
+            $deleted = $productCategory->delete();
         } else {
             return response()->json(['message' => 'A product is currently using this category.', 'status' => 'error']);
         }
 
-        if ($deleteCategory) {
+        if ($deleted) {
             return response()->json(['message' => 'Product category deleted successfully.', 'status' => 'success']);
         } else {
             return response()->json(['message' => 'Error deleting the product category.', 'status' => 'error']);
@@ -60,6 +67,9 @@ class ProductCategoryController extends Controller
         ]);
     
         if ($request->hasFile('productCategoryImage')) {
+            if ($editProduct->productCategoryImage && Storage::disk('r2')->exists($editProduct->productCategoryImage)) {
+                Storage::disk('r2')->delete($editProduct->productCategoryImage);
+            }
             $image = $request->file('productCategoryImage');
             $imageName = time() . '_' . $image->getClientOriginalName();
             $imagePath = $image->storeAs('product-categories', $imageName, 'r2');
