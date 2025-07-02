@@ -36,11 +36,11 @@ class InventoryController extends Controller
         ]);
 
         $image = $request->file('productImage');
-        $imageName = time() . '_' . $image->getClientOriginalName();
-        $image->move(public_path('hydrogen/images/products'), $imageName); 
-        
-
-        $imagePath = 'images/products/' . $imageName;
+        $imagePath = $image->storeAs(
+            'products',
+            time() . '_' . $image->getClientOriginalName(),
+            'r2'
+        );
 
         $addInventory = Product::create([
             'productCode' => $request->productCode,
@@ -72,9 +72,10 @@ class InventoryController extends Controller
         ]);
     
         if ($request->hasFile('productImage')) {
-            $imageName = $request->file('productImage')->getClientOriginalName();
-            $request->file('productImage')->move(public_path('hydrogen/images/products'), $imageName);
-            $editProduct->productImage = 'images/products/' . $imageName;
+            $image = $request->file('productImage');
+            $imageName = time() . '_' . $image->getClientOriginalName();
+            $imagePath = $image->storeAs('products', $imageName, 'r2');
+            $editProduct->productImage = $imagePath;
         }
     
         $editProduct->update($request->only(['productCode', 'productName', 'productStockQuantity', 'productPrice', 'productCategory']));
