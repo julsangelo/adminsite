@@ -64,7 +64,7 @@ export default function UploadImage({ onFileChange, error, uploadedImage }) {
                             <img
                                 src={
                                     uploadedImage === imageSrc
-                                        ? `/hydrogen/${imageSrc}`
+                                        ? `${process.env.R2_PUBLIC_URL}/${imageSrc}`
                                         : imageSrc
                                 }
                                 alt="Uploaded"
