@@ -14,11 +14,12 @@ class ProductCategoryController extends Controller
             'productCategoryImage' => 'required|image|max:2048',
         ]);
 
-        $image = $request->file('productCategoryImage');
-        $imageName = time() . '_' . $image->getClientOriginalName();
-        $image->move(public_path('hydrogen/images/product-categories'), $imageName); 
-
-        $imagePath = 'images/product-categories/' . $imageName;
+        $image = $request->file('productImage');
+        $imagePath = $image->storeAs(
+            'product-categories',
+            time() . '_' . $image->getClientOriginalName(),
+            'r2'
+        );
 
         $addInventory = ProductCategory::create([
             'productCategoryName' => $request->productCategoryName,
