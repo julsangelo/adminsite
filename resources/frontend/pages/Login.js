@@ -40,7 +40,7 @@ export default function Login() {
                 onSubmit={handleSubmit(onSubmit)}
             >
                 <div className={styles.brandContainer}>
-                    <p className={styles.brandHeading}>CLIF</p>
+                    <p className={styles.brandHeading}>CLIFF</p>
                     <p className={styles.brandSubheading}>
                         Automotive Parts Trading
                     </p>
