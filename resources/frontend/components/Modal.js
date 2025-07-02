@@ -58,7 +58,7 @@ export default function Modal({
             case "image":
                 return (
                     <div className={styles.modalImage}>
-                        <img src={`${process.env.R2_PUBLIC_URL}/${value}`} alt="" />
+                        <img src={`${process.env.REACT_APP_R2_PUBLIC_URL}`} alt="" />
                     </div>
                 );
             case "addProductCategory":
