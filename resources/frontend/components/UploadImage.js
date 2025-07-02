@@ -64,7 +64,7 @@ export default function UploadImage({ onFileChange, error, uploadedImage }) {
                             <img
                                 src={
                                     uploadedImage === imageSrc
-                                        ? `${process.env.REACT_APP_R2_PUBLIC_URL}/${imageSrc}`
+                                        ? `https://pub-4ccc84ea168e4aa58beb7628465ec31e.r2.dev/${imageSrc}`
                                         : imageSrc
                                 }
                                 alt="Uploaded"
