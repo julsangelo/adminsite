@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductCategoryController extends Controller
 {
@@ -42,7 +43,7 @@ class ProductCategoryController extends Controller
             $productCategory = ProductCategory::findOrFail($productCategoryID);
 
             if ($productCategory->productCategoryImage) {
-                $imagePath = $product->productCategoryImage;
+                $imagePath = $productCategory->productCategoryImage;
                 Storage::disk('r2')->delete($imagePath);
             }
 
