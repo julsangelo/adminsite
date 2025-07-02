@@ -1,4 +1,5 @@
 let path = require("path");
+let Dotenv = require('dotenv-webpack');
 let MiniCssExtractPlugin = require("mini-css-extract-plugin");
 let { WebpackManifestPlugin } = require("webpack-manifest-plugin");
 
@@ -86,6 +87,7 @@ let config = {
     },
     plugins: [
         new MiniCssExtractPlugin(),
+        new Dotenv(),
         new WebpackManifestPlugin({
             fileName: path.resolve(__dirname, "manifest.json"),
             generate: (seed, files) => {
