@@ -72,8 +72,8 @@ export default function Table({
                                     className={styles.image}
                                     src={
                                         item.productImage
-                                            ? `/hydrogen/${item.productImage}`
-                                            : `/hydrogen/${item.productCategoryImage}`
+                                            ? `${process.env.R2_PUBLIC_URL}/${item.productImage}`
+                                            : `${process.env.R2_PUBLIC_URL}/${item.productCategoryImage}`
                                     }
                                     alt={item.product || "Product Image"}
                                 />
