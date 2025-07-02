@@ -58,7 +58,7 @@ export default function Modal({
             case "image":
                 return (
                     <div className={styles.modalImage}>
-                        <img src={`https://pub-4ccc84ea168e4aa58beb7628465ec31e.r2.dev`} alt="" />
+                        <img src={`https://pub-4ccc84ea168e4aa58beb7628465ec31e.r2.dev/${value}`} alt="" />
                     </div>
                 );
             case "addProductCategory":
